@@ -18,8 +18,8 @@ function header_info {
 EOF
 }
 header_info
-echo -e "\n Loading..."
-GEN_MAC=02:$(openssl rand -hex 5 | awk '{print toupper($0)}' | sed 's/\(..\)/\1:/g; s/.$//')
+#GEN_MAC=02:$(openssl rand -hex 5 | awk '{print toupper($0)}' | sed 's/\(..\)/\1:/g; s/.$//')
+GEN_MAC=02:C1:C4:73:1C:7C # Using static mac so that we can assign static IP
 NEXTID=$(pvesh get /cluster/nextid)
 RANDOM_UUID="$(cat /proc/sys/kernel/random/uuid)"
 METHOD=""
@@ -163,9 +163,9 @@ function default_settings() {
   VMID="$NEXTID"
   FORMAT=",efitype=4m"
   MACHINE=""
-  DISK_SIZE="5G"
+  DISK_SIZE="20G" # Change disk size to 20G
   DISK_CACHE=""
-  HN="ubuntu"
+  HN="vault" # change hostname to vault
   CPU_TYPE=""
   CORE_COUNT="2"
   RAM_SIZE="2048"
@@ -173,7 +173,7 @@ function default_settings() {
   MAC="$GEN_MAC"
   VLAN=""
   MTU=""
-  START_VM="yes"
+  START_VM="no"
   METHOD="default"
   echo -e "${CONTAINERID}${BOLD}${DGN}Virtual Machine ID: ${BGN}${VMID}${CL}"
   echo -e "${CONTAINERTYPE}${BOLD}${DGN}Machine Type: ${BGN}i440fx${CL}"
